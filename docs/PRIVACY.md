@@ -1,0 +1,11 @@
+# Privacy and first-use trust
+
+No TV address or certificate is bundled. Automatic identification tests only local interface IPv4 addresses and loopback; manual configuration accepts private/link-local IPv4 addresses. The setup probe reads public TV model metadata and performs a TLS handshake to display a certificate, without sending authentication, commands or WebSocket messages. It does not persist trust until the user explicitly confirms. Subsequent traffic checks the approved leaf fingerprint and validity; there is no HTTP fallback for control and no trust-all runtime mode. Initial user-approved trust is not a public-CA identity guarantee.
+
+The saved address/pin and application order remain in application-private preferences with backup disabled. No evidence collection tools or fixed developer log receiver are included. Both applications export only when the user requests it. Launcher reports contain its own source/Home state, model and SDK; receiver export contains its own service log. Shared redaction removes address literals, common device identifiers, credentials and local paths on a best-effort basis. Review exported content before public sharing. No other-app private data is collected.
+
+The publication source is selected independently of .gitignore. Device evidence, historic logs, certificates, signing keys, passwords, local.properties, private configuration, APKs and build/dependency caches are excluded. Existing local development files and history are not copied. Asset text/EXIF metadata is removed without changing compressed pixels; upstream attribution is kept in ASSET-SOURCES.md.
+
+Run `python scripts/privacy_check.py` before publication. If a Git index exists, the check also rejects forbidden files that were tracked despite ignore rules. `python scripts/build_source_archive.py` builds the exact audited source set. Generated archives and signed APKs belong in artifacts/, which is ignored, and can be reviewed separately as release assets.
+
+The launcher deliberately retains target SDK 28 for the tested Android-10 Samsung Home-event bridge. This is a sideloaded firmware-specific app, not a Google Play build; raising the target and broadening platform support require separate runtime testing.
